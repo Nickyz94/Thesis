@@ -2,8 +2,8 @@ from trilateration import Trilateration
 from read_test_data import group_data, read_data, read_drone_data
 import csv
 
-DEF_FILE_NAME = '/media/nickyz/Data/scriptie_data/calibration/calibration_data_20180126.csv'
-PI_MAC = '38f3bac0f9e453211a65d468359ded4a56669add0be69079924e901f0b41d4f6'
+DEF_FILE_NAME = '/media/nickyz/Data/scriptie_data/calibration/calibration_data_20180208.csv'
+PI_MAC = '437aab3f88a56f32a428df1fc6b2c140bebd28cdf7601a767854c5b41e8d52c5'
 GAMMA = 2.0
 
 def count_unique_aps(ap_ids):

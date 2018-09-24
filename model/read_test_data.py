@@ -3,7 +3,7 @@ import datetime
 import itertools
 import pandas as pd
 
-SECONDS_GROUPING = 60
+SECONDS_GROUPING = 30
 
 def group_data(data, sort_index):
     sorted_data = sorted(data, key=lambda x: x[sort_index])
@@ -23,19 +23,39 @@ def find_location(drone_id, drone_data):
     except IndexError:
         return None
 
+def find_first_last(datafile):
+    stamps = []
+    with open(datafile) as f:
+        reader = csv.DictReader(f)
+
+        for row in reader:
+            timestamp = int(row['measurementtimestamp']) // 1000
+            stamps.append(timestamp)
+
+    return min(stamps), max(stamps)
+
 def read_data(datafile):
     data = {}
+    drone_data = read_drone_data()
+    first_stamp, last_stamp = find_first_last(datafile)
+
     with open(datafile) as f:
         reader = csv.DictReader(f)
 
         for row in reader:
             row_data = []
 
-            timestamp = row['measurementtimestamp']
-            rounded_stamp = timestamp = round(int(timestamp[0:-3]) / SECONDS_GROUPING) * SECONDS_GROUPING
-            timestamp = datetime.datetime.fromtimestamp(rounded_stamp).strftime('%Y-%m-%d %H:%M:%S')
+            if int(row['signal']) < -80:
+                continue
 
-            row_data = [timestamp, row['sensorid'], row['signal']]
+            if find_location(row['sensorid'], drone_data) is None:
+                continue
+
+            timestamp = int(row['measurementtimestamp']) // 1000
+            index = int((timestamp - first_stamp) / SECONDS_GROUPING)
+            stamp = first_stamp + index * SECONDS_GROUPING
+
+            row_data = [stamp, row['sensorid'], int(row['signal'])]
 
             try:
                 data[row['sourcemac']].append(row_data)

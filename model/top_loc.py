@@ -6,18 +6,8 @@ def top_loc_signal(data, mac):
     time_grouped = group_data(data, 0)
 
     for time_group in time_grouped:
-        score_sorted = sorted(list(time_group[1]), key=lambda x: -int(x[2]))
-
-        i = 0
-        loc = None
-
-        try:
-            while(loc is None):
-                loc = find_location(score_sorted[i][1], drone_data)
-                i += 1
-        except IndexError:
-            print('Couldnt find a location in the AP set')
-            continue
+        max_score = max(time_group[1], key=lambda x: x[2])
+        loc = find_location(max_score[1], drone_data)
 
         locs.append([mac, time_group[0], loc["x_m"], loc["y_m"], loc["z_m"]])
 
@@ -38,19 +28,9 @@ def top_loc_frequency(data, mac):
             except KeyError:
                 frequencies[row[1]] = [1, 100 + int(row[2])]
 
-        score_sorted = sorted(frequencies, key=lambda x: (-frequencies[x][0],
-                                                          -frequencies[x][1]))
-
-        i = 0
-        loc = None
-
-        try:
-            while(loc is None):
-                loc = find_location(score_sorted[i], drone_data)
-                i += 1
-        except IndexError:
-            print('Couldnt find a location in the AP set')
-            continue
+        max_score = max(frequencies, key=lambda x: (frequencies[x][0],
+                                                    frequencies[x][1]))
+        loc = find_location(max_score, drone_data)
 
         locs.append([mac, time_group[0], loc["x_m"], loc["y_m"], loc["z_m"]])
 
@@ -70,18 +50,9 @@ def top_loc_signal_sum(data, mac):
             except KeyError:
                 sums[row[1]] = 100 + int(row[2])
 
-        score_sorted = sorted(sums, key=lambda x: -sums[x])
+        max_score = max(sums, key=lambda x: sums[x])
 
-        i = 0
-        loc = None
-
-        try:
-            while(loc is None):
-                loc = find_location(score_sorted[i], drone_data)
-                i += 1
-        except IndexError:
-            print('Couldnt find a location in the AP set')
-            continue
+        loc = find_location(max_score, drone_data)
 
         locs.append([mac, time_group[0], loc["x_m"], loc["y_m"], loc["z_m"]])
 

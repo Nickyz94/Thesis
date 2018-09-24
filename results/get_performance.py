@@ -111,15 +111,14 @@ def main(datafile, measure):
         reader = csv.DictReader(f, delimiter=';')
 
         for row in reader:
-            stamp = time.mktime(datetime.datetime.strptime(row['timestamp'],
-                                                           "%Y-%m-%d %H:%M:%S").timetuple())
+            stamp = float(row['timestamp'])
             ests.append((stamp, np.array([float(row['x_m']), float(row['y_m'])])))
 
     ground_truth = create_ground_truth()
 
     ground_truth_dict = {}
     for spot in ground_truth:
-        stamp = time.mktime(datetime.datetime.strptime('2018-01-26 ' + spot[0],
+        stamp = time.mktime(datetime.datetime.strptime('2018-02-08 ' + spot[0],
                                                        "%Y-%m-%d %H:%M:%S").timetuple())
         ground_truth_dict[stamp] = spot[1]
 

@@ -33,7 +33,7 @@ class Trilateration():
         return (10 * self.gamma / (log(10) * self._d(x_sen, y_sen, z_sen, x, y, z)**2) * (loc_vec - sen_vec).T)
 
     def _friis(self, x_sen, y_sen, z_sen, x, y, z, eta):
-        return (eta - 10 * log10(self._d(x_sen, y_sen, z_sen, x, y, z)**self.gamma))
+        return (eta - 10 * self.gamma * log10(self._d(x_sen, y_sen, z_sen, x, y, z)))
 
     def _loss(self, pars, xs, ys, zs, signals):
         """
@@ -53,7 +53,7 @@ class Trilateration():
             pars[2] -> z
             pars[2] -> eta
         """
-        return [np.append([1], self._loc_gradient(xs[i], ys[i], zs[i], pars[0], pars[1], pars[2]))
+        return [np.append([-1], self._loc_gradient(xs[i], ys[i], zs[i], pars[0], pars[1], pars[2]))
                 for i, _ in enumerate(xs)]
 
     def get_location(self, sensors):

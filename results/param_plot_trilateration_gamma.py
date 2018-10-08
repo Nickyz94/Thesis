@@ -2,7 +2,7 @@ import numpy as np
 import get_performance
 import matplotlib.pyplot as plt
 
-TIME_WINDOW = 1.5
+TIME_WINDOW = 60
 
 def main():
     param_values = [i / 100 for i in range(0, 301, 5)]
@@ -13,6 +13,9 @@ def main():
         results.append(
             get_performance.main(file_name.format(TIME_WINDOW, param_value), 'euc')
         )
+
+    print(param_values[np.argmin(results)])
+
 
     plt.plot(param_values, results)
     plt.xlabel('Gamma')

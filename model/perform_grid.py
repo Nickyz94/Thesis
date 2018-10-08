@@ -15,13 +15,28 @@ stds = {
     1.5: (6, 9, 2),
     5: (16, 22, 16),
     15: (25, 16, 2),
-    30: (9, 8, 16)
+    30: (9, 8, 16),
+    60: (16, 29, 29),
+    120: (2, 29, 29)
 }
 
 def main(datafile=DEF_FILE_NAME):
     data = read_data(datafile)
-    size = 16
 
+    # for size in range(1, 26):
+    #     for method in methods:
+    #         with open("../results/grid/size_estimation/results_grid_{}_{}_{}.csv".format(method[1], SECONDS_GROUPING, size),
+    #                   "a") as f:
+    #             writer = csv.writer(f, delimiter=";")
+    #             writer.writerow(["sourcemac", "timestamp", "x_m", "y_m"])
+    #
+    #             results = method[0](data[PI_MAC], PI_MAC, size)
+    #
+    #             for row in results:
+    #                 writer.writerow(row)
+
+    size = 16
+    #
     # for method in methods:
     #     with open("../results/grid/top_loc/results_grid_{}_{}.csv".format(method[1], SECONDS_GROUPING),
     #               "a") as f:
@@ -35,66 +50,68 @@ def main(datafile=DEF_FILE_NAME):
 
     for i in range(0, 101):
         alpha = i / 100
+    # alpha = 0.5
     # for std in range(1, 36, 1):
-    #     with open("../results/grid/alpha_estimation_signal_sum/results_grid_normal_signal_sum_{}_{}.csv".format(SECONDS_GROUPING, alpha),
-    #               "a") as f:
-    #         writer = csv.writer(f, delimiter=";")
-    #         writer.writerow(["sourcemac", "timestamp", "x_m", "y_m"])
-    #
-    #         results = normal_grid_method(data[PI_MAC], PI_MAC, stds[SECONDS_GROUPING][0], size, 'signal_sum', alpha=alpha)
-    #
-    #         for row in results:
-    #             writer.writerow(row)
-    #
-        # with open("../results/grid/alpha_estimation_frequency/results_grid_normal_frequency_{}_{}.csv".format(SECONDS_GROUPING, alpha),
-        #           "a") as f:
-        #     writer = csv.writer(f, delimiter=";")
-        #     writer.writerow(["sourcemac", "timestamp", "x_m", "y_m"])
-        #
-        #     results = normal_grid_method(data[PI_MAC], PI_MAC, stds[SECONDS_GROUPING][1], size, 'freq', alpha=alpha)
-        #
-        #     for row in results:
-        #         writer.writerow(row)
+        with open("../results/grid/alpha_estimation_signal_sum/results_grid_normal_signal_sum_{}_{}.csv".format(SECONDS_GROUPING, alpha),
+                  "a") as f:
+            writer = csv.writer(f, delimiter=";")
+            writer.writerow(["sourcemac", "timestamp", "x_m", "y_m"])
+
+            results = normal_grid_method(data[PI_MAC], PI_MAC, stds[SECONDS_GROUPING][1], size, 'signal_sum', alpha=alpha)
+
+            for row in results:
+                writer.writerow(row)
+
+        with open("../results/grid/alpha_estimation_frequency/results_grid_normal_frequency_{}_{}.csv".format(SECONDS_GROUPING, alpha),
+                  "a") as f:
+            writer = csv.writer(f, delimiter=";")
+            writer.writerow(["sourcemac", "timestamp", "x_m", "y_m"])
+
+            results = normal_grid_method(data[PI_MAC], PI_MAC, stds[SECONDS_GROUPING][2], size, 'freq', alpha=alpha)
+
+            for row in results:
+                writer.writerow(row)
+
         with open("../results/grid/alpha_estimation_signal/results_grid_normal_signal_{}_{}.csv".format(SECONDS_GROUPING, alpha),
                   "a") as f:
             writer = csv.writer(f, delimiter=";")
             writer.writerow(["sourcemac", "timestamp", "x_m", "y_m"])
 
-            results = normal_grid_method(data[PI_MAC], PI_MAC, stds[SECONDS_GROUPING][2], size, 'signal', alpha=alpha)
+            results = normal_grid_method(data[PI_MAC], PI_MAC, stds[SECONDS_GROUPING][0], size, 'signal', alpha=alpha)
 
             for row in results:
                 writer.writerow(row)
 
     # for std in range(1, 36, 1):
-        # with open("../results/grid/std_estimation_hadamard/results_grid_hadamard_normal_sum_{}_{}.csv".format(SECONDS_GROUPING, std),
-        #           "a") as f:
-        #     writer = csv.writer(f, delimiter=";")
-        #     writer.writerow(["sourcemac", "timestamp", "x_m", "y_m"])
-        #
-        #     results = normal_hadamard_grid_method(data[PI_MAC], PI_MAC, std, size, 'signal_sum')
-        #
-        #     for row in results:
-        #         writer.writerow(row)
-        #
-        # with open("../results/grid/std_estimation_hadamard/results_grid_hadamard_normal_freq_{}_{}.csv".format(SECONDS_GROUPING, std),
-        #           "a") as f:
-        #     writer = csv.writer(f, delimiter=";")
-        #     writer.writerow(["sourcemac", "timestamp", "x_m", "y_m"])
-        #
-        #     results = normal_hadamard_grid_method(data[PI_MAC], PI_MAC, std, size, 'freq')
-        #
-        #     for row in results:
-        #         writer.writerow(row)
-
-        # with open("../results/grid/std_estimation_hadamard/results_grid_hadamard_normal_signal_{}_{}.csv".format(SECONDS_GROUPING, std),
-        #           "a") as f:
-        #     writer = csv.writer(f, delimiter=";")
-        #     writer.writerow(["sourcemac", "timestamp", "x_m", "y_m"])
-        #
-        #     results = normal_hadamard_grid_method(data[PI_MAC], PI_MAC, std, size, 'signal')
-        #
-        #     for row in results:
-        #         writer.writerow(row)
+    #     with open("../results/grid/std_estimation_hadamard/results_grid_hadamard_normal_sum_{}_{}.csv".format(SECONDS_GROUPING, std),
+    #               "a") as f:
+    #         writer = csv.writer(f, delimiter=";")
+    #         writer.writerow(["sourcemac", "timestamp", "x_m", "y_m"])
+    #
+    #         results = normal_hadamard_grid_method(data[PI_MAC], PI_MAC, std, size, 'signal_sum')
+    #
+    #         for row in results:
+    #             writer.writerow(row)
+    #
+    #     with open("../results/grid/std_estimation_hadamard/results_grid_hadamard_normal_freq_{}_{}.csv".format(SECONDS_GROUPING, std),
+    #               "a") as f:
+    #         writer = csv.writer(f, delimiter=";")
+    #         writer.writerow(["sourcemac", "timestamp", "x_m", "y_m"])
+    #
+    #         results = normal_hadamard_grid_method(data[PI_MAC], PI_MAC, std, size, 'freq')
+    #
+    #         for row in results:
+    #             writer.writerow(row)
+    #
+    #     with open("../results/grid/std_estimation_hadamard/results_grid_hadamard_normal_signal_{}_{}.csv".format(SECONDS_GROUPING, std),
+    #               "a") as f:
+    #         writer = csv.writer(f, delimiter=";")
+    #         writer.writerow(["sourcemac", "timestamp", "x_m", "y_m"])
+    #
+    #         results = normal_hadamard_grid_method(data[PI_MAC], PI_MAC, std, size, 'signal')
+    #
+    #         for row in results:
+    #             writer.writerow(row)
 
 if __name__ == '__main__':
     main()

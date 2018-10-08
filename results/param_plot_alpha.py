@@ -2,7 +2,7 @@ import numpy as np
 import get_performance
 import matplotlib.pyplot as plt
 
-TIME_WINDOW = 15
+TIME_WINDOW = 120
 
 def main():
     param_values = range(0, 101)
@@ -10,8 +10,8 @@ def main():
 
     file_names = [
         ('grid/alpha_estimation_signal/results_grid_normal_signal_{}_{}.csv', 'Signal'),
-        # ('grid/alpha_estimation_frequency/results_grid_normal_frequency_{}_{}.csv', 'Frequency'),
-        # ('grid/alpha_estimation_signal_sum/results_grid_normal_signal_sum_{}_{}.csv', 'Signal Sum'),
+        ('grid/alpha_estimation_frequency/results_grid_normal_frequency_{}_{}.csv', 'Frequency'),
+        ('grid/alpha_estimation_signal_sum/results_grid_normal_signal_sum_{}_{}.csv', 'Signal Sum'),
     ]
 
     results = [[] for _ in file_names]
@@ -22,7 +22,7 @@ def main():
                 get_performance.main(file_name[0].format(TIME_WINDOW, param_value), 'euc')
             )
 
-    print(np.argmin(results[0]))
+    print(np.argmin(results[0]), np.argmin(results[1]), np.argmin(results[2]))
 
     for i, file_name in enumerate(file_names):
         plt.plot(param_values, results[i])

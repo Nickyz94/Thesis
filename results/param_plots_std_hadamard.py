@@ -2,7 +2,7 @@ import numpy as np
 import get_performance
 import matplotlib.pyplot as plt
 
-TIME_WINDOW = 30
+TIME_WINDOW = 60
 
 def main():
     param_values = range(1, 36)

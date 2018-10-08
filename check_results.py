@@ -16,7 +16,7 @@ def with_aps():
 
     results = {}
 
-    with open('results/grid/normal_signal_sum/results_grid_normal_signal_sum_1.5_0.5.csv', 'r') as f:
+    with open('results/grid/std_estimation_hadamard/results_grid_hadamard_normal_freq_30_9.csv', 'r') as f:
         reader = csv.DictReader(f, delimiter=';')
 
         for row in reader:
@@ -45,7 +45,7 @@ def with_aps():
         # plt.show()
 
 def path():
-    with open('results/grid/normal_signal_sum/results_grid_normal_signal_sum_5_0.5.csv', 'r') as f:
+    with open('results/grid/std_estimation_hadamard/results_grid_hadamard_normal_freq_30_9.csv', 'r') as f:
         reader = csv.DictReader(f, delimiter=';')
         x_results = []
         y_results = []

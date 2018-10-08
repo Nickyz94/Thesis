@@ -3,7 +3,7 @@ import datetime
 import itertools
 import pandas as pd
 
-SECONDS_GROUPING = 30
+SECONDS_GROUPING = 60
 
 def group_data(data, sort_index):
     sorted_data = sorted(data, key=lambda x: x[sort_index])

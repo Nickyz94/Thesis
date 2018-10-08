@@ -2,15 +2,15 @@ import numpy as np
 import get_performance
 import matplotlib.pyplot as plt
 
-TIME_WINDOW = 30
+TIME_WINDOW = 60
 
 def main():
     param_values = range(1, 36)
 
     file_names = [
         ('grid/std_estimation/results_grid_normal_signal_{}_{}.csv', 'Signal'),
-        # ('grid/std_estimation/results_grid_normal_frequency_{}_{}.csv', 'Frequency'),
-        # ('grid/std_estimation/results_grid_normal_signal_sum_{}_{}.csv', 'Signal Sum'),
+        ('grid/std_estimation/results_grid_normal_frequency_{}_{}.csv', 'Frequency'),
+        ('grid/std_estimation/results_grid_normal_signal_sum_{}_{}.csv', 'Signal Sum'),
     ]
 
     results = [[] for _ in file_names]

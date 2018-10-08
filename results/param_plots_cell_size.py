@@ -2,10 +2,10 @@ import numpy as np
 import get_performance
 import matplotlib.pyplot as plt
 
-TIME_WINDOW = 1.5
+TIME_WINDOW = 120
 
 def main():
-    param_values = np.arange(1, 21, 1)
+    param_values = np.arange(1, 26, 1)
 
     file_names = [
         ('grid/size_estimation/results_grid_freq_{}_{}.csv', 'Frequency'),

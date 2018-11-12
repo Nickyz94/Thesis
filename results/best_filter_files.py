@@ -888,6 +888,6 @@ def get_files(time_window):
             else:
                 postfix = filter_method[1].format(time_window, best_params)
 
-            files.append((prefix + middle + postfix, filter_method, base_method))
+            files.append((prefix + middle + postfix, filter_method[2], base_method))
 
     return files

@@ -17,7 +17,7 @@ class Exp_mv_avg():
 
 class Irr_exp_mv_avg():
     """docstring for Exp_mv_avg"""
-    def __init__(self, alpha):
+    def __init__(self, tau):
         self.tau = tau
 
     def calc_irr_alpha(self, t, prev_t):
@@ -30,7 +30,7 @@ class Irr_exp_mv_avg():
 
         for x in xs[1:]:
             alpha = self.calc_irr_alpha(x[0], prev_time)
-            S = self.alpha * np.array(x[1]) + (1 - self.alpha) * S
+            S = alpha * np.array(x[1]) + (1 - alpha) * S
             Ss.append(S)
             prev_time = x[0]
 
@@ -57,11 +57,15 @@ class Double_exp_smoothing():
 
 class Irr_double_exp_smoothing():
     """docstring for Exp_mv_avg"""
-    def __init__(self, alpha, beta):
-        self.tau = tau
+    def __init__(self, tau_a, tau_b):
+        self.tau_a = tau_a
+        self.tau_b = tau_b
 
     def calc_irr_alpha(self, t, prev_t):
-        return 1 - np.exp(-(t - prev_t) / self.tau)
+        return 1 - np.exp(-(t - prev_t) / self.tau_a)
+
+    def calc_irr_beta(self, t, prev_t):
+        return 1 - np.exp(-(t - prev_t) / self.tau_b)
 
     def get_series(self, xs):
         S = np.array(xs[0][1])
@@ -71,10 +75,11 @@ class Irr_double_exp_smoothing():
 
         for x in xs[1:]:
             alpha = self.calc_irr_alpha(x[0], prev_time)
+            beta = self.calc_irr_beta(x[0], prev_time)
             prev_time = x[0]
             prev_S = S
             S = alpha * np.array(x[1]) + (1 - alpha) * (S + b)
-            b = alpha * (S - prev_S) + (1 - alpha) * b
+            b = beta * (S - prev_S) + (1 - beta) * b
             Ss.append(S)
 
         return Ss

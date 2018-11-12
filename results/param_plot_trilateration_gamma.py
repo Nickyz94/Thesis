@@ -11,7 +11,7 @@ def main():
 
     for param_value in param_values:
         results.append(
-            get_performance.main(file_name.format(TIME_WINDOW, param_value), 'euc')
+            get_performance.main(file_name.format(TIME_WINDOW, param_value), 'euc')[0]
         )
 
     print(param_values[np.argmin(results)])

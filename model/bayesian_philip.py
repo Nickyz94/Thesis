@@ -2,11 +2,11 @@ from gaussian_blur import Gaus_blur
 
 class Bayesian_Philip():
     """docstring for Bayesian_Philip"""
-    def __init__(self, sensors, gaus_sigma, gaus_dimensions):
+    def __init__(self, sensors, sigma):
         """sensors = {sensor_name: location}"""
         self.prior = self._set_initial_prior(sensors)
         self.sensor_locations = sensors
-        self.gaus_blur = Gaus_blur(gaus_sigma, gaus_dimensions, sensors)
+        self.gaus_blur = Gaus_blur(sigma, sensors)
 
     def _set_initial_prior(self, sensors):
         uniform_prior = 1 / len(sensors)

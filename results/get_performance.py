@@ -94,7 +94,7 @@ def find_ground_truth(est, ground_truth_dict):
 
     return np.array([truth_x, truth_y])
 
-def main(datafile, measure):
+def main(datafile, measure, average=True):
     if measure == 'euc':
         method = euclidean
     elif measure == 'sq_euc':
@@ -130,4 +130,7 @@ def main(datafile, measure):
         if truth is not None:
             dists.append(method(est[1], truth))
 
-    return sum(dists) / len(dists)
+    if average:
+        return (sum(dists) / len(dists), np.std(dists))
+    else:
+        return dists

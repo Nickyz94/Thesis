@@ -18,7 +18,7 @@ def main():
     for param_value in param_values:
         for i, file_name in enumerate(file_names):
             results[i].append(
-                get_performance.main(file_name[0].format(TIME_WINDOW, param_value), 'euc')
+                get_performance.main(file_name[0].format(TIME_WINDOW, param_value), 'euc')[0]
             )
 
     for i, file_name in enumerate(file_names):

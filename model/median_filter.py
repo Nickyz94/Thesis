@@ -1,3 +1,5 @@
+import numpy as np
+
 class Median_filter():
     """docstring for Median_filter"""
     def __init__(self, window):
@@ -29,7 +31,7 @@ class Gaussian_median_filter():
         self.window = window
         self.sigma = sigma
 
-    def weight(x):
+    def weight(self, x):
         return 1 / (self.sigma * (2 * np.pi)**0.5) * np.exp(-x**2 / (2 * self.sigma**2))
 
     def get_series(self, xs):
@@ -38,7 +40,7 @@ class Gaussian_median_filter():
 
         for i, x in enumerate(xs):
             data = []
-            data.append(x[1], weight(x[0] - x[0]))
+            data.append((x[1], self.weight(x[0] - x[0])))
 
             for j in range(1, self.window + 1):
                 low_index = max(0, i - j)
@@ -46,7 +48,7 @@ class Gaussian_median_filter():
                 data.append((xs[low_index][1], low_weight))
 
                 high_index = min(last_index, i + j)
-                high_weight = self.weight(xs[0] - xs[high_index][0])
+                high_weight = self.weight(x[0] - xs[high_index][0])
                 data.append((xs[high_index][1], high_weight))
 
             weight_threshold = 0.5 * sum([row[1] for row in data])
@@ -101,7 +103,7 @@ class Shifting_median_filter():
         for i, x in enumerate(xs):
             data = []
             D = sorted([abs(x[0] - xt[0]) for xt in xs])
-            data.append(x[1], D[-1] + D[1])
+            data.append((x[1], D[-1] + D[1]))
 
             for j in range(1, self.window + 1):
                 low_index = max(0, i - j)
